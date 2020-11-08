@@ -40,4 +40,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+
+    public function roles()
+    {
+      //creating a dynamic property called roles inside user. will make the connection for us when creating and requesting users
+      //will return an array of roles
+      return $this->belongsToMany('App\Models\Role');
+
+    }
+
 }

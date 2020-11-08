@@ -48,8 +48,29 @@ class User extends Authenticatable
     {
       //creating a dynamic property called roles inside user. will make the connection for us when creating and requesting users
       //will return an array of roles
-      return $this->belongsToMany('App\Models\Role');
+      return $this->belongsToMany('App\Models\Role', 'user_role');
 
     }
+
+    public function authorizeRoles($roles)
+    {
+      if (is_array($roles)) {
+        return $this->hasAnyRole($roles) ||
+                abort(401, 'This action is unauthorized'); //short circuit syntax
+      }
+      return $this->hasRole($roles) ||
+                abort(401,'This action is unauthorized');
+    }
+
+    public function hasAnyRole($roles) //for checking list of roles
+    {
+      return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    public function hasRole($role) //for checking one specific role
+    {
+      return null !== $this->roles()->where('name', $role)->first();
+    }
+
 
 }

@@ -22,7 +22,11 @@
                             </tr>
                             <tr>
                               <td>Publisher</td>
-                              <td>{{ $book->publisher }}</td>
+                              <td>{{ $book->publisher->name }}</td>
+                            </tr>
+                            <tr>
+                              <td>Publisher Address</td>
+                              <td>{{ $book->publisher->address }}</td>
                             </tr>
                             <tr>
                               <td>Year</td>

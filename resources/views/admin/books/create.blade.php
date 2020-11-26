@@ -25,22 +25,31 @@
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
                 </div>
+
                 <div class="form-group">
                     <label for="author">Author</label>
                     <input type="text" class="form-control" name="author" id="author" value="{{ old('author') }}" />
                 </div>
+
                 <div class="form-group">
                     <label for="publisher">Publisher</label>
-                    <input type="text" class="form-control" name="publisher" id="publisher" value="{{ old('publisher') }}" />
+                    <select name="publisher_id">
+                      @foreach ($publishers as $publisher)
+                        <option value = " {{ $publisher->id }}" {{ (old('publisher_id') == $publisher->id) ? "selected" : "" }} >{{ $publisher->name }}</option>
+                      @endforeach
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="year">Year</label>
                     <input type="text" class="form-control" name="year" id="year" value="{{ old('year') }}" />
                 </div>
+
                 <div class="form-group">
                     <label for="isbn">ISBN</label>
                     <input type="text" class="form-control" name="isbn" id="isbn" value="{{ old('isbn') }}" />
                 </div>
+
                 <div class="form-group">
                     <label for="price">Price</label>
                     <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" />

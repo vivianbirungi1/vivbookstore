@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in as an Ordinary User!
+                    You are logged in as an Ordinary User! <a href="{{ route('user.books.index') }}"> Books</a>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Publisher;
 
 class BookController extends Controller
 {
@@ -43,7 +44,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+      $publishers = Publisher::all();
+        return view('admin.books.create', [
+          'publishers' => $publishers
+        ]);
     }
 
     /**
@@ -57,7 +61,7 @@ class BookController extends Controller
         $request ->validate([
           'title' => 'required|max:191',
           'author' => 'required|max:191',
-          'publisher' => 'required|max:191',
+          'publisher_id' => 'required',
           'year' => 'required|integer|min:1900',
           'isbn' => 'required|alpha_num|size:13|unique:books,isbn',
           'price' => 'required|numeric|min:0'
@@ -67,7 +71,7 @@ class BookController extends Controller
 
         $book->title = $request->input('title');
         $book->author = $request->input('author');
-        $book->publisher = $request->input('publisher');
+        $book->publisher_id = $request->input('publisher_id');
         $book->year = $request->input('year');
         $book->isbn = $request->input('isbn');
         $book->price = $request->input('price');
@@ -100,9 +104,11 @@ class BookController extends Controller
     public function edit($id)
     {
       $book = Book::findOrFail($id);
+      $publishers = Publisher::all();
 
       return view('admin.books.edit', [
-        'book' => $book
+        'book' => $book,
+        'publishers' => $publishers
       ]);
     }
 
@@ -119,7 +125,7 @@ class BookController extends Controller
       $request ->validate([
         'title' => 'required|max:191',
         'author' => 'required|max:191',
-        'publisher' => 'required|max:191',
+        'publisher_id' => 'required',
         'year' => 'required|integer|min:1900',
         'isbn' => 'required|alpha_num|size:13|unique:books,isbn,' . $id,
         'price' => 'required|numeric|min:0'
@@ -129,7 +135,7 @@ class BookController extends Controller
 
       $book->title = $request->input('title');
       $book->author = $request->input('author');
-      $book->publisher = $request->input('publisher');
+      $book->publisher_id = $request->input('publisher_id');
       $book->year = $request->input('year');
       $book->isbn = $request->input('isbn');
       $book->price = $request->input('price');

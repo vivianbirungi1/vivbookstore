@@ -5,9 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Review;
 use Auth;
 
-class BookController extends Controller
+class ReviewController extends Controller
 {
 
   /**
@@ -18,7 +19,7 @@ class BookController extends Controller
   public function __construct()
   {
       $this->middleware('auth');
-      $this->middleware('role:user,admin'); //can add more authorisation to view the page e.g admin
+      $this->middleware('role:user'); //can add more authorisation to view the page e.g admin
   }
     /**
      * Display a listing of the resource.
@@ -27,11 +28,7 @@ class BookController extends Controller
      */
     public function index()
     {
-      $books = Book::all();
-
-      return view('user.books.index', [
-        'books' => $books
-      ]);
+        //
     }
 
     /**
@@ -39,9 +36,13 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        return view('user.books.reviews.create', [
+          'book' => $book
+        ]);
     }
 
     /**
@@ -50,9 +51,16 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $review = new Review();
+        $review->title = $request->input('title');
+        $review->body = $request->input('body');
+        $review->user_id = Auth::id();
+        $review->book_id = $id;
+        $review->save();
+
+        return redirect()->route('user.books.show', $id);
     }
 
     /**
@@ -63,14 +71,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Book::findOrFail($id);
-      //  $reviews = Auth::user()->reviews;
-
-      //$reviews = $book->reviews;
-
-        return view('user.books.show', [
-          'book' => $book
-        ]);
+        //
     }
 
     /**

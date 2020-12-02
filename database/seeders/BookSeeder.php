@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Book;
 use App\Models\Publisher;
 
-class PublisherSeeder extends Seeder
+class BookSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +15,6 @@ class PublisherSeeder extends Seeder
      */
     public function run()
     {
-      for($i = 1; $i <= 10; $i++) {
-        Publisher::factory()->hasBooks(mt_rand(1, 3))->create();
-      }
+        
     }
 }

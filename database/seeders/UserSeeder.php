@@ -34,6 +34,12 @@ class UserSeeder extends Seeder
         $user->save();
         $user->roles()->attach($role_user);
 
+        // $customer = new Customer();
+        // $customer->address = '123 Fake Street';
+        // $customer->phone = '0928319023';
+        // $customer->user_id = $user->id;
+        // $customer->save();
+
 
         //use user factory to geerate users for us
         // $users = User::factory()->times(10)->

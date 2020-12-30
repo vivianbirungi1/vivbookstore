@@ -19,9 +19,15 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.books.update', $book->id) }}" method="POST">
+        <form action="{{ route('admin.books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="_method" value="PUT">
+                <img src="{{ asset('storage/covers/' . $book->cover ) }}" width="150" />
+                <div class="form-group">
+                    <label for="cover">Cover</label>
+                    <input type="file" class="form-control" name="cover" id="cover" />
+                </div>
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $book->title) }}" />

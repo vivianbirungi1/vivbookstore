@@ -12,6 +12,13 @@
                 <div class="card-body">
                     <table class="table table-hover">
                         <tbody>
+
+                          <tr>
+                              <td rowspan="6">
+                              <img src="{{ asset('storage/covers/' . $book->cover ) }}" width="150" />
+                              </td>
+                          </tr>
+
                             <tr>
                                 <td>Title</td>
                                 <td>{{ $book->title }}</td>

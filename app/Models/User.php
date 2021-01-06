@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function customer()
     {
-      //user has many reviews
+      //user has one customet
       return $this->hasOne('App\Models\Customer');
     }
 

@@ -29,11 +29,17 @@ Route::middleware ('api')->group(function() {
   //GET /api/books/$id - display a specific book
   Route::get('/books/{id}', [APIBookController::class, 'show']);
 
-  //GET /api/publishers - display all publisherss
+  //POST /api/books - add new book to db
+  Route::post('/books', [APIBookController::class, 'store']);
+
+  //PUT /api/books - add new book to db
+  Route::put('/books/{id}', [APIBookController::class, 'update']);
+
+  //DELTE /api/books/$id - delete existing book
+  Route::delete('/books/{id}', [APIBookController::class, 'destroy']);
+
+  //GET /api/publishers - display all publishers
   Route::get('/publishers', [APIPublisherController::class, 'index']);
 
-  //POST /api/books - add new book to db
-  //PUT /api/books/$id - edit existing books
-  //DELTE /api/books/$id - selete existing book
 
 });

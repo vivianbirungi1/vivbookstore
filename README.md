@@ -59,3 +59,30 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Installation Instructions:
+Edit the Homestead.yaml file and under sites write the following:
+-	Map: ace.medbay
+To: /home/vagrant/WAF/MyLaravelProjects/AceMedBay/public
+Add the database name under databases, database name is ace_medbay.
+Inside the actual project, dupilcate the env.example file and change it to env.
+Open .env file and set DB_DATABASE to the db name ace_medbay (same as in the Homestead file) and set the username to ‘homestead’ and password to ‘secret’.
+Then run ‘vagrant up’ to start the environment or  ‘vagrant reload - -provision’ to refresh the Homestead environment. In your C drive, go to Windows/System32/drivers/etc and open the hosts file and add:
+127.0.0.1	ace.medbay
+In the Homestead environment, cd into the application folder and run the following:
+-	composer install
+-	npm install
+-	php artisan key:generate
+-	php artisan passport:install
+Then migrate the database:
+-	php artisan migrate
+-	php artisan migrate:refresh (to refresh the database)
+-	php artisan migrate:fresh (to drop all the tables and re-migrate them)
+Then seed the database:
+-	php artisan db:seed
+-	php artisan migrate:refresh - -seed (to refresh migrations and seed database.
+Then initialise, add and commit Git:
+-	git init
+-	git add .
+-	git commit -am “Initial commit”
+Create your own remote repository and push your commits to have your code backed up on GitHub.
